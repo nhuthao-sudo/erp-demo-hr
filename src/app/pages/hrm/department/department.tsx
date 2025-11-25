@@ -16,6 +16,8 @@ import { CONFIG_LANG_KEY } from '~/app/configs/lang-key.config'
 import ModalCreateDepartment from '~/app/pages/hrm/department/_components/modal-create-department'
 import ModalUpdateDepartment from '~/app/pages/hrm/department/_components/modal-update-department'
 
+import { SignupForm } from "~/app/components/custom/SignupForm";
+
 const cx = classNames.bind(styles)
 function Department() {
     const [isModalCreate, setIsModalCreate] = useState(false)
@@ -130,6 +132,7 @@ function Department() {
                     titleAdd={getLangKey(CONFIG_LANG_KEY.PAGE_DEPARTMENT_ADD_DEPARTMENT)}
                     defaultRowsLoading={3}
                 />
+                
             </div>
             <ModalCreateDepartment modal={isModalCreate} toggle={toggleModal} />
             <ModalUpdateDepartment id={departmentId} modal={isModalUpdate} toggle={toggleModalUpdate} />
@@ -142,7 +145,7 @@ function Department() {
                     messageSuccess(getLangKey(CONFIG_LANG_KEY.ERP365_DELETE_SUCCESSFULLY))
                 }}
                 // error={t(deleteLocalError?.message ?? '')}
-            />
+            />          
         </Fragment>
     )
 }
