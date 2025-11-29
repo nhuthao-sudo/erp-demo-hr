@@ -1,0 +1,362 @@
+.employeeDetail {
+    padding: 0;
+    background: #ffffff;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    .header {
+        padding: 16px 24px;
+        background: #f8f9fa;
+        border-bottom: 1px solid #e9ecef;
+        flex-shrink: 0;
+
+        .backButton {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border: 1px solid #d1d5db;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #4b5563;
+            font-weight: 500;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: #f9fafb;
+                border-color: #9ca3af;
+            }
+
+            i {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .profileContent {
+        flex: 1;
+        overflow-y: auto;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .profileCard {
+        background: white;
+        padding: 0;
+
+        .avatarSection {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 24px;
+            border-bottom: 1px solid #f0f0f0;
+
+            .avatar {
+                width: 72px;
+                height: 72px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 2px solid #e5e7eb;
+            }
+
+            .basicInfo {
+                flex: 1;
+
+                h1 {
+                    margin: 0 0 6px 0;
+                    font-size: 22px;
+                    color: #111827;
+                    font-weight: 600;
+                    line-height: 1.2;
+                }
+
+                .employeeCode {
+                    margin: 0;
+                    color: #6b7280;
+                    font-size: 14px;
+                    font-weight: 400;
+                }
+            }
+        }
+
+        .detailSections {
+            .section {
+                padding: 20px 24px;
+                border-bottom: 1px solid #f0f0f0;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                h3 {
+                    margin: 0 0 20px 0;
+                    color: #111827;
+                    font-size: 16px;
+                    font-weight: 600;
+                    padding-bottom: 8px;
+                    border-bottom: 1px solid #e5e7eb;
+                }
+
+                .infoGrid {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 20px;
+
+                    .infoItem {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 6px;
+                        
+                        label {
+                            font-weight: 500;
+                            color: #374151;
+                            font-size: 12px;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        }
+                        
+                        span {
+                            color: #111827;
+                            font-size: 14px;
+                            line-height: 1.4;
+                            min-height: 20px;
+                            
+                            &:empty {
+                                &::after {
+                                    content: 'Trống';
+                                    color: #9ca3af;
+                                    font-style: italic;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .loading, .error {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        
+        .loadingContent, .errorContent {
+            max-width: 400px;
+            width: 100%;
+            padding: 0 20px;
+        }
+    }
+
+    .loading {
+        .loadingContent {
+            h3 {
+                color: #374151;
+                margin-bottom: 16px;
+                font-size: 16px;
+            }
+            
+            .loadingSpinner {
+                width: 32px;
+                height: 32px;
+                border: 3px solid #f3f4f6;
+                border-top: 3px solid #374151;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                margin: 0 auto;
+            }
+        }
+    }
+
+    .error {
+        .errorContent {
+            h3 {
+                color: #dc2626;
+                margin-bottom: 16px;
+                font-size: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                
+                i {
+                    font-size: 20px;
+                }
+            }
+            
+            p {
+                margin-bottom: 12px;
+                color: #6b7280;
+                line-height: 1.5;
+                font-size: 14px;
+                
+                strong {
+                    color: #374151;
+                    background: #f3f4f6;
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                }
+            }
+            
+            .errorActions {
+                display: flex;
+                gap: 12px;
+                justify-content: center;
+                margin-top: 20px;
+                
+                .backButton, .retryButton {
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    padding: 8px 16px;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-weight: 500;
+                    transition: all 0.2s ease;
+                    border: 1px solid #d1d5db;
+                    font-size: 14px;
+                    background: white;
+                    
+                    &:hover {
+                        background: #f9fafb;
+                    }
+                }
+                
+                .retryButton {
+                    background: #374151;
+                    color: white;
+                    border-color: #374151;
+                    
+                    &:hover {
+                        background: #4b5563;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+// Responsive design
+@media (max-width: 1024px) {
+    .employeeDetail {
+        .profileContent {
+            .profileCard {
+                .detailSections {
+                    .section {
+                        .infoGrid {
+                            grid-template-columns: repeat(2, 1fr);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .employeeDetail {
+        .header {
+            padding: 12px 16px;
+        }
+
+        .profileContent {
+            .profileCard {
+                .avatarSection {
+                    padding: 20px 16px;
+                    flex-direction: column;
+                    text-align: center;
+                    gap: 12px;
+
+                    .avatar {
+                        width: 60px;
+                        height: 60px;
+                    }
+
+                    .basicInfo {
+                        h1 {
+                            font-size: 20px;
+                        }
+                    }
+                }
+
+                .detailSections {
+                    .section {
+                        padding: 16px;
+
+                        .infoGrid {
+                            grid-template-columns: 1fr;
+                            gap: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .employeeDetail {
+        .profileContent {
+            .profileCard {
+                .avatarSection {
+                    .basicInfo {
+                        h1 {
+                            font-size: 18px;
+                        }
+                        
+                        .employeeCode {
+                            font-size: 13px;
+                        }
+                    }
+                }
+
+                .detailSections {
+                    .section {
+                        padding: 12px;
+
+                        h3 {
+                            font-size: 15px;
+                            margin-bottom: 16px;
+                        }
+
+                        .infoGrid {
+                            .infoItem {
+                                label {
+                                    font-size: 11px;
+                                }
+                                
+                                span {
+                                    font-size: 13px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .error {
+            .errorContent {
+                .errorActions {
+                    flex-direction: column;
+                    gap: 8px;
+                    
+                    .backButton, .retryButton {
+                        width: 100%;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -21,7 +21,6 @@ import Image from '~/app/components/image-component'
 import useDebounce from '~/app/hooks/useDebounce'
 import { GetAllEmployeeRequestType } from '~/app/types/employee/request/employee.type'
 import { ApiQueryPaginationResponseType } from '~/app/types/utils/api.type'
-import ModalViewEmployee from '~/app/pages/hrm/emp/employee/_components/modal-view-employee'
 import { useStorePopup } from '~/app/shared/popup.shared'
 import { employeeCommandApi } from '~/app/apis/employee/command/employee.command.api'
 import useAuthStore from '~/app/shared/auth.shared'
@@ -33,7 +32,6 @@ export default function Employee() {
     const [isModalDelete, setIsModalDelete] = useState(false)
     const [employeeId, setEmployeeId] = useState(0)
     const { messageSuccess } = useToastMessageAsync()
-    const [isModalView, setIsModalView] = useState(false)
     const { profileEmployee } = useAuthStore()
     const { openModal, closeModal } = useStorePopup()
 
@@ -47,21 +45,6 @@ export default function Employee() {
         }
     })
 
-    // const { mutate, error: deleteLocalError } = useMutation({
-    //     mutationFn: (id: number) => employeeCommandApi.deleteEmployee(id)
-    // })
-
-    // const handleDelete = (id: number) => {
-    //     mutate(id, {
-    //         onSuccess: () => {
-    //             queryClient.refetchQueries({ queryKey: [TANSTACK_KEY.EMPLOYEE_ALL] })
-    //             queryClient.invalidateQueries({ queryKey: [TANSTACK_KEY.EMPLOYEE_ONE, id] })
-    //             setIsModalDelete(false)
-    //             messageSuccess(t('Delete successfully'))
-    //         }
-    //     })
-    // }
-
     const [keyword, setKeyword] = useState('')
     const debounced = useDebounce(keyword, 1000)
     const [paramsEmployee, setParamsEmployee] = useState<GetAllEmployeeRequestType>({
@@ -70,8 +53,7 @@ export default function Employee() {
         pageSize: 500,
         empName: debounced,
         isDescending: false,
-        // default company test
-        companyId: 9 // Initialize with null instead of 0 to indicate "not ready"
+        companyId: 9
     })
 
     // Update paramsEmployee when profileEmployee.companyId or debounced changes
@@ -90,8 +72,7 @@ export default function Employee() {
     const { data } = useQuery({
         queryKey: [TANSTACK_KEY.EMPLOYEE_PAGINATION_ALL, profileEmployee?.companyId],
         queryFn: () => employeeQueryApi.getAllEmployee(paramsEmployee),
-
-        enabled: !!profileEmployee?.companyId && paramsEmployee.companyId !== null // Only run when companyId is valid
+        enabled: !!profileEmployee?.companyId && paramsEmployee.companyId !== null
     })
     const employeeData = data as ApiQueryPaginationResponseType<EmployeeType[]>
 
@@ -211,7 +192,11 @@ export default function Employee() {
                     return (
                         <div className={cx('actions')}>
                             <i className='ri-lock-password-fill iconBlue' onClick={() => toggleResetPassword(id)}></i>
-                            <span className='ri-eye-fill iconBlue' onClick={() => toggleModalView(id)}></span>
+                            {/* ĐÃ SỬA: navigate đến trang chi tiết */}
+                            <span 
+                                className='ri-eye-fill iconBlue' 
+                                onClick={() => navigate(`/employee/detail/${id}`)}
+                            ></span>
                             <span className='ri-pencil-fill iconBlue' onClick={() => navigate(`/employee/update/${id}`)}></span>
                             <span
                                 className={`ri-delete-bin-6-fill ${isActived ? 'iconDanger' : 'iconSecondary'}`}
@@ -222,7 +207,7 @@ export default function Employee() {
                 }
             }
         ],
-        [isLoadingLang, language]
+        [isLoadingLang, language, navigate, getLangKey]
     )
 
     const toggleResetPassword = useCallback((id: number) => {
@@ -231,25 +216,14 @@ export default function Employee() {
         openModal(title, message, () => {
             mutationResetPassword.mutate(id)
         })
-    }, [])
-
-    const toggleModalView = useCallback(
-        (id?: number) => {
-            if (id) {
-                setEmployeeId(id)
-            }
-            setIsModalView(!isModalView)
-        },
-        [isModalView]
-    )
+    }, [openModal, mutationResetPassword])
 
     const toggleModalDelete = useCallback((id?: number) => {
         if (id) {
-            console.log(employeeId)
             setEmployeeId(id)
         }
         setIsModalDelete(!isModalDelete)
-    }, [])
+    }, [isModalDelete])
 
     const handleChangeSort = useCallback((key: string) => {
         if (key === 'asc') {
@@ -280,7 +254,7 @@ export default function Employee() {
                 )
             }
         ],
-        [isLoadingLang]
+        [isLoadingLang, getLangKey]
     )
 
     const handleChangeActive = useCallback((key: string) => {
@@ -336,7 +310,7 @@ export default function Employee() {
                     defaultRowsLoading={2}
                 />
             </div>
-            <ModalViewEmployee id={employeeId} modal={isModalView} toggle={toggleModalView} />
+            {/* ĐÃ XÓA: ModalViewEmployee */}
             <ModalDelete
                 recordId={getLangKey(CONFIG_LANG_KEY.ERP365_EMPLOYEE)}
                 show={isModalDelete}
@@ -345,7 +319,6 @@ export default function Employee() {
                     setIsModalDelete(false)
                     messageSuccess(getLangKey(CONFIG_LANG_KEY.ERP365_DELETE_SUCCESSFULLY))
                 }}
-                // error={t(deleteLocalError?.message ?? '')}
             />
         </Fragment>
     )

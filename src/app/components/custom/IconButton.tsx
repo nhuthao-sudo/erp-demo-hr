@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button"; // Thêm import này
-import { cn } from "@/lib/utils"; // Import cn để merge className
+import { Button } from "../../components/ui/button"; // Thêm import này
+import { cn } from "../../lib/utils"; // Import cn để merge className
 
 interface IconButtonProps {
   icon: React.ReactNode;

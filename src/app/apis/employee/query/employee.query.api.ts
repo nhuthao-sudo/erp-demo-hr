@@ -17,5 +17,12 @@ export const employeeQueryApi = {
         const url = `/v1/hrm/Employee/${id}`
         const response = (await http.get(url)) as ResponseMessageType<EmployeeType>
         return response.data
-    }
+    },
+    // getOneEmployee: async (id: number): Promise<EmployeeType> => {
+    //     const response = await http<EmployeeType>({
+    //         url: `/employees/${id}`, // có thể endpoint khác
+    //         method: 'GET'
+    //     })
+    //     return response.data
+    // },
 }

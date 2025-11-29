@@ -7,6 +7,7 @@ import Employee from '~/app/pages/hrm/emp/employee'
 import EmployeeAdd from '~/app/pages/hrm/emp/employee-add'
 import EmployeeUpdate from '~/app/pages/hrm/emp/employee-update'
 import EmployeeVerify from '~/app/pages/hrm/emp/employee-verify'
+import EmployeeDetail from '~/app/pages/hrm/emp/employee-detail' // THÊM IMPORT NÀY
 import HourPerDay from '~/app/pages/hrm/hour-per-day'
 import HourPerWeek from '~/app/pages/hrm/hour-per-week'
 import Marital from '~/app/pages/hrm/marital'
@@ -27,6 +28,7 @@ export const hrRoute = [
     { path: APP_ROUTES.EMPLOYEE_ADD, element: <EmployeeAdd /> },
     { path: APP_ROUTES.EMPLOYEE_UPDATE, element: <EmployeeUpdate /> },
     { path: APP_ROUTES.EMPLOYEE_VERIFY, element: <EmployeeVerify /> },
+    { path: APP_ROUTES.EMPLOYEE_DETAIL, element: <EmployeeDetail /> }, // THÊM ROUTE NÀY
     { path: APP_ROUTES.HOUR_PER_WEEK, element: <HourPerWeek /> },
     { path: APP_ROUTES.HOUR_PER_DAY, element: <HourPerDay /> }
 ]

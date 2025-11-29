@@ -16,7 +16,7 @@ import { CONFIG_LANG_KEY } from '~/app/configs/lang-key.config'
 import ModalCreateDepartment from '~/app/pages/hrm/department/_components/modal-create-department'
 import ModalUpdateDepartment from '~/app/pages/hrm/department/_components/modal-update-department'
 
-import { SignupForm } from "~/app/components/custom/SignupForm";
+import { IconButton } from "~/app/components/custom/IconButton"
 
 const cx = classNames.bind(styles)
 function Department() {
@@ -132,6 +132,7 @@ function Department() {
                     titleAdd={getLangKey(CONFIG_LANG_KEY.PAGE_DEPARTMENT_ADD_DEPARTMENT)}
                     defaultRowsLoading={3}
                 />
+                
                 
             </div>
             <ModalCreateDepartment modal={isModalCreate} toggle={toggleModal} />

@@ -15,6 +15,7 @@ export const APP_ROUTES = {
     EMPLOYEE_ADD: '/employee/add',
     EMPLOYEE_UPDATE: '/employee/update/:id',
     EMPLOYEE_VERIFY: '/employee-verify',
+    EMPLOYEE_DETAIL: '/employee/detail/:id', // THÊM DÒNG NÀY
     HOUR_PER_WEEK: '/hour-per-week',
     HOUR_PER_DAY: '/hour-per-day',
     
